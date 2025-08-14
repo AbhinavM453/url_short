@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortened URL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md text-center">
+
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">URL Shortened!</h1>
+            <p class="text-gray-600 mb-4">Here is your new shortened link:</p>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-center justify-between space-x-4">
+                <a 
+                    href="{{ short_url }}" 
+                    class="text-blue-600 hover:underline break-all" 
+                    target="_blank" 
+                    id="short-url-link">
+                    {{ short_url }}
+                </a>
+                <button 
+                    onclick="copyToClipboard()" 
+                    class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200">
+                    Copy
+                </button>
+            </div>
+            
+            <a href="{% url 'shorten_url' %}" class="mt-6 inline-block text-blue-600 hover:text-blue-800 hover:underline">
+                Shorten another URL
+            </a>
+            
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            const shortUrlLink = document.getElementById('short-url-link');
+            const urlToCopy = shortUrlLink.href;
+
+            navigator.clipboard.writeText(urlToCopy).then(() => {
+                alert('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+
+</body>
+</html>
